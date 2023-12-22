@@ -8,5 +8,5 @@ const divide = document.getElementsByClassName("divide");
 const screen = document.getElementsByClassName("screen");
 
 function operator(num1,oper,num2){
-test 
+test 2
 }
