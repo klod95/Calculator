@@ -12,10 +12,22 @@ body {
     padding: 30px;
     }
 button {
-    width: 100px;
+    width: 67px;
     height: 30px;
-    margin: 7%;
-    border-radius: 5px;
+    margin: 5%;
+    border-radius: 7px;
+    
+}
+button:hover {
+    background-color: rgb(124, 131, 128);
+    color: aliceblue;
+}
+
+button.backSpace {
+    width: 150px;
+}
+.clear {
+    width: 80px;
 }
 .screen {
     text-align: right;
