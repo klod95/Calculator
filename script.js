@@ -2,6 +2,7 @@ let num1 = '';
 let oper = "";
 let num2 = '';
 let curentNum = "";
+let resu = '';
 const add = document.getElementsByClassName("add");
 const subtract = document.getElementsByClassName("subtract");
 const multiply = document.getElementsByClassName("multiply");
@@ -18,39 +19,94 @@ var displayValue = '';
 for (let i = 0; i< numbers.length; i++){
    numbers[i].addEventListener("click", () => {
        displayValue = displayValue + numbers[i].textContent;
-       screen[0].textContent = num1 + " " + displayValue;
+       screen[0].textContent = displayValue;
        curentNum += numbers[i].textContent;
        console.log("curent num is:" + curentNum);
       })
 };
 
 add[0].addEventListener("click", () => {
-   oper = 1;
+   //makes it possible to add if there is +.
+   if (oper === "add") {
+      num2 = curentNum;
+      adition();
+   } // the else if here makes it possible to add after a / or * or -. And  
+   else if (oper ==='subs') { num2 = curentNum; sub()}
+   else if (oper ==='mult') { num2 = curentNum; mul()}
+   else if (oper ==='divide') { num2 = curentNum; div()}
+  
+   oper = "add";
+   //makes is posible to add after =.
+   if (resu != ""){
+      num1 = resu;
+      displayValue = resu;
+      screen[0].textContent = displayValue;
+   } else 
    num1 = curentNum;
    curentNum = '';
-   displayValue = '+ ';
-   screen[0].textContent = num1 + " +"
-   console.log("add num1 = " + num1)
+   displayValue += '+';
+   screen[0].textContent = displayValue;
+   console.log("add num1 = " + num1);
    console.log("add num2 = " + num2);
+   console.log("resu onAdd is = " + resu)
 });
 subtract[0].addEventListener('click', () => {
-   oper = 2;
+   if (oper === "subs") {
+      num2 = curentNum;
+      sub();
+   } else if (oper ==='add') { num2 = curentNum; adition()}
+   else if (oper ==='mult') { num2 = curentNum; mul()}
+   else if (oper ==='divide') { num2 = curentNum; div()}
+   oper = "subs";
+   if (resu != ""){
+      num1 = resu;
+      displayValue = resu;
+      screen[0].textContent = displayValue;
+   } else 
    num1 = curentNum;
    curentNum = '';
-   console.log("add num1 = " + num1)
-   console.log("add num2 = " + num2);
+   displayValue += '-';
+   screen[0].textContent = displayValue;
+   console.log("sub num1 = " + num1)
+   console.log("sub num2 = " + num2);
 });
 divide[0].addEventListener('click', () => {
-   oper = 3;
+   if (oper === "divide") {
+      num2 = curentNum;
+      div();
+   } else if (oper ==='subs') { num2 = curentNum; sub()}
+   else if (oper ==='mult') { num2 = curentNum; mul()}
+   else if (oper ==='add') { num2 = curentNum; adition()}
+   oper = "divide";
+   if (resu != ""){
+      num1 = resu;
+      displayValue = resu;
+      screen[0].textContent = displayValue;
+   } else 
    num1 = curentNum;
    curentNum = '';
+   displayValue += '/';
+   screen[0].textContent = displayValue;
    console.log("add num1 = " + num1)
    console.log("add num2 = " + num2);
 });
 multiply[0].addEventListener('click', () => {
-   oper = 4;
+   if (oper === "mult") {
+      num2 = curentNum;
+      mul();
+   } else if (oper ==='subs') { num2 = curentNum; sub()}
+   else if (oper ==='add') { num2 = curentNum; adition()}
+   else if (oper ==='divide') { num2 = curentNum; div()}
+   oper =  "mult";
+   if (resu != "" || resu != 0){
+      num1 = resu;
+      displayValue = resu;
+      screen[0].textContent = displayValue;
+   } else 
    num1 = curentNum;
    curentNum = '';
+   displayValue += '*';
+   screen[0].textContent = displayValue;
    console.log("add num1 = " + num1)
    console.log("add num2 = " + num2);
 });
@@ -60,23 +116,26 @@ function operator(){
    console.log(num2);
    console.log(oper);
    switch(oper){ 
-      case 1  : resu = (Number(num1) + Number(num2));
+      case "add"  : resu = (Number(num1) + Number(num2));
          break;
-      case 2 : resu = (Number(num1) - Number(num2));
+      case "subs" : resu = (Number(num1) - Number(num2));
          break;
-      case 3 : resu = (Number(num1) / Number(num2));
+      case "divide" : resu = (Number(num1) / Number(num2));
          break;
-      case 4 : resu = (Number(num1) * Number(num2));
+      case "mult" : resu = (Number(num1) * Number(num2));
          break;
       default:
       resu = '';
       num1 = '';
       num2 = '';
    }
-   console.log(resu);
+   console.log("resu is " +  resu);
    num1 = '';
    curentNum = '';
-   screen[0].textContent = resu;
+   oper = '';
+   displayValue = displayValue + "=" + resu;
+   screen[0].textContent = displayValue;
+   // displayValue = '';
    return resu;
 }
 result[0].addEventListener("click",operator);
@@ -85,33 +144,39 @@ clear[0].addEventListener('click',() => {
     num1 = "";
     num2 = "";
     curentNum = '';
+    resu = '';
+    oper = '';
     screen[0].textContent = displayValue;
+   console.log('cNum1' + num1);
+   console.log('cNum2' + num2);
+   console.log('cOper'+ oper);
+   console.log('cresu' + resu);
+   console.log('cCurent' + curentNum);
+   
+   
 });
 backSpace[0].addEventListener('click',()=> {
-    displayValue = displayValue.slice(0,-1)
+    displayValue = displayValue.slice(0,-1);
+    curentNum = curentNum.slice(0,-1);
     screen[0].textContent = displayValue;
 });
 
 // operation functions
-function adition(num1,num2){
-   let sum = num1 + num2;
-   console.log(sum + " sum is");
-   return sum;
+function adition(){
+   resu = (Number(num1) + Number(num2));
+   return resu;
 };
-function sub(num1,num2){
-    let sum = num1 - num2
-    console.log(sum);
-    return sum;
+function sub(){
+   resu = (Number(num1) - Number(num2));
+   return resu;
  };
- function mul(num1,num2){
-    let sum = num1 * num2
-    console.log(sum);
-    return sum;
+ function mul(){
+   resu = (Number(num1) * Number(num2));
+   return resu;
  };
- function div(num1,num2){
-    let sum = num1 / num2
-    console.log(sum);
-    return sum;
+ function div(){
+   resu = (Number(num1) / Number(num2));
+   return resu;
  };
 
 
