@@ -67,8 +67,9 @@ subtract[0].addEventListener('click', () => {
    curentNum = '';
    displayValue += '-';
    screen[0].textContent = displayValue;
-   console.log("sub num1 = " + num1)
+   console.log("sub num1 = " + num1);
    console.log("sub num2 = " + num2);
+   console.log("resu on sub is = " + resu)
 });
 divide[0].addEventListener('click', () => {
    if (oper === "divide") {
@@ -87,18 +88,19 @@ divide[0].addEventListener('click', () => {
    curentNum = '';
    displayValue += '/';
    screen[0].textContent = displayValue;
-   console.log("add num1 = " + num1)
+   console.log("add num1 = " + num1);
    console.log("add num2 = " + num2);
+   console.log("resu on div is = " + resu);
 });
 multiply[0].addEventListener('click', () => {
    if (oper === "mult") {
       num2 = curentNum;
-      mul();
+      mul(); 
    } else if (oper ==='subs') { num2 = curentNum; sub()}
    else if (oper ==='add') { num2 = curentNum; adition()}
    else if (oper ==='divide') { num2 = curentNum; div()}
    oper =  "mult";
-   if (resu != "" || resu != 0){
+   if (resu != "" ){
       num1 = resu;
       displayValue = resu;
       screen[0].textContent = displayValue;
@@ -107,8 +109,9 @@ multiply[0].addEventListener('click', () => {
    curentNum = '';
    displayValue += '*';
    screen[0].textContent = displayValue;
-   console.log("add num1 = " + num1)
+   console.log("add num1 = " + num1);
    console.log("add num2 = " + num2);
+   console.log("resu on mul is = " + resu)
 });
 function operator(){
    num2 =  curentNum; 
@@ -171,12 +174,20 @@ function sub(){
    return resu;
  };
  function mul(){
+   // this if else alows to be able to change difrently *-/+ after a number.
+   if (Number(num1) === 0 || Number(num2) === 0) {
+      resu = num1;
+   } else 
    resu = (Number(num1) * Number(num2));
    return resu;
  };
  function div(){
+   // this if else alows to be able to change difrently *-/+ after a number.
+   if (Number(num1) === 0 || Number(num2) === 0) {
+      screen[0].textContent = "You can't divide with 0"
+      resu = num1;
+   } else 
    resu = (Number(num1) / Number(num2));
    return resu;
  };
-
 
